@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: Maven@3
@@ -23,10 +23,11 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: '**/.war'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    Contents: '**/*.war'  # Make sure this pattern matches the location and extension of your WAR file
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathToPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'warfile'
-    publishLocation: 'Container'
+    PublishLocation: 'Container'
